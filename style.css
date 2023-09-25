@@ -1,21 +1,120 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+@font-face {
+    font-family: anime;
+    src: url('Fonstars-4Bo0p.otf');
+}
+body {
+    font-family: anime;
+    color: orange
+}
 .gameboard {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    margin-top: 50px;
+    margin-left: 500px;
+    margin-right: 500px;
 }
 .slot {
-    background-color: white;
-    
+
     height: 100px;
     border: 1px solid black;
-    color: blue;
+    background-color: rgb(139, 192, 60);
     
 }
 .chosen {
-    background-color: white;
-    
+    background-color: orangered;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
     height: 100px;
     border: 1px solid black;
     color: black;
     font-size: 30;
 }
+.gameStarter {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    
+}
+.formContainer {
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 70px);
+    width: 1000px;
+    height: 500px;
+    border: 2px solid black;
+    
+    background-image: url('https://i.pinimg.com/564x/5c/aa/38/5caa387f349b1b7b8de5d528f37a719b.jpg');
+    
+    background-size:auto;
+    
+}
+.playerOne {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    padding-top: 50px;
+    
+    
+    height: 20px;
+    
+    
+    
+}
+.playerTwo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    padding-top: 10px;
+    
+    height: 20px;
+    
+}
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    margin-left: 30px;
+    width: 20px; 
+    height: 20px; 
+    border: 2px solid #3498db; 
+    border-radius: 50%; 
+    outline: none;
+    transition: border-color 0.3s ease;
+    background-color: orangered;
+  }
+  
+  
+input[type="radio"]:checked {
+    border-color: black;
+    background-color: rgb(139, 192, 60);
+    
+}
+input[type="submit"] {
+    background-color: rgb(222, 102, 59); 
+    color: white; 
+    height: 30px;
+    width: 200px;
+   
+    border: 1px solid black;
+    border-radius: 5px; 
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    align-content: center;
+  }
+  
+  
+input[type="submit"]:hover {
+    background-color: rgb(139, 192, 60);
+    color: black;
+}
+  
+  
