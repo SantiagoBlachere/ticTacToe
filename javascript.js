@@ -20,8 +20,7 @@ const gameboardModule = (function() {
             const slotDiv = document.createElement('div');
             slotDiv.classList.add('slot');
             slotDiv.classList.add(`${slot}`);
-            
-            slotDiv.addEventListener('click', () => {
+            const handleClickWin = () => {
                 if (playerOne.turn === true) {
                     if (!slotDiv.innerText && slotDiv.innerText !== 'O') {
                         slotDiv.classList.remove('slot');
@@ -75,19 +74,36 @@ const gameboardModule = (function() {
                     slotNumbersX = [];
                     slotNumbersO = [];
                     createFormModule.selectedPlayer = false;
+                    
                     const resetBoardButton = document.createElement('button');
-                    resetBoardButton.innerText = 'RESET GAME'
+                    resetBoardButton.innerText = 'RESET GAME';
+                    resetBoardButton.classList.add('resetButton');
                     gameboard.appendChild(resetBoardButton);
-                    const childElements = gameboard.querySelectorAll('div')
-                    resetBoardButton.addEventListener('click', () => {
-                        childElements.forEach( (el) => {
-                            gameboard.removeChild(el);
-                            
-                        })
+                    const endedGameSlots = gameboard.querySelectorAll('div');
+                    const endedGameSlotsClone = gameboard.querySelectorAll('div');
+                    
+                    resetBoardButton.addEventListener('click', resetGameBoard)
+
+                    
+                    function resetGameBoard() {
+                        const childElements = gameboard.querySelectorAll('div')
+                        childElements.forEach((el) => {
+                            el.remove();
+                        });
                         gameboard.removeChild(resetBoardButton)
-                        
                         createFormModule.createForm();
-                    })
+                    }
+                 
+
+                    // Create clones of the div elements
+                    const cloneElements = Array.from(endedGameSlots).map((el) => el.cloneNode(true));
+                    
+                    
+                    // Remove event listeners from the original elements
+                    endedGameSlotsClone.forEach((el) => {
+                        el.replaceWith(cloneElements.shift());
+                        el.removeEventListener('click', handleClickWin);
+                    });
                     
                     
                     
@@ -106,6 +122,7 @@ const gameboardModule = (function() {
                     createFormModule.selectedPlayer = false;
                     const resetBoardButton = document.createElement('button');
                     resetBoardButton.innerText = 'RESET GAME'
+                    resetBoardButton.classList.add('resetButton')
                     gameboard.appendChild(resetBoardButton);
                     const childElements = gameboard.querySelectorAll('div')
                     resetBoardButton.addEventListener('click', () => {
@@ -117,10 +134,41 @@ const gameboardModule = (function() {
                         
                         createFormModule.createForm();
                     })
+                    slotDiv.removeEventListener('click', handleClickWin);
                     
                     
-                }
-            });
+                } else {
+                        const allNumbers = slotNumbersX.concat(slotNumbersO)
+                        const allNumbersAdded = allNumbers.reduce((total, number) => total + number, 0);
+                        console.log(allNumbersAdded)
+                        if (allNumbersAdded === 45) {
+                            slotNumbersX = [];
+                            slotNumbersO = [];
+                            createFormModule.selectedPlayer = false;
+                            const resetBoardButton = document.createElement('button');
+                            resetBoardButton.innerText = 'RESET GAME'
+                            resetBoardButton.classList.add('resetButton')
+                            gameboard.appendChild(resetBoardButton);
+                            const childElements = gameboard.querySelectorAll('div')
+                            resetBoardButton.addEventListener('click', () => {
+                                childElements.forEach( (el) => {
+                                    gameboard.removeChild(el);
+                                    
+                                })
+                                gameboard.removeChild(resetBoardButton);
+                                
+                                createFormModule.createForm();
+                            })
+                            slotDiv.removeEventListener('click', handleClickWin);
+                        }
+                        
+                    }
+                
+            }
+            slotDiv.addEventListener('click', handleClickWin);
+            
+            
+            
             gameboard.appendChild(slotDiv);
         });
     };
@@ -133,7 +181,9 @@ const Player = (figure, boolean, playerName) => {
     const figureChosen = figure;
     const turn = boolean;
     const win = () => {
-        alert(`${playerName} won!!!`);
+        setTimeout(() => {
+            swal("Good job!", "You've won!! I think..?", "success");
+        }, 500); 
     };
     return { figureChosen, turn, win };
 };
