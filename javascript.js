@@ -142,6 +142,9 @@ const gameboardModule = (function() {
                         const allNumbersAdded = allNumbers.reduce((total, number) => total + number, 0);
                         console.log(allNumbersAdded)
                         if (allNumbersAdded === 45) {
+                            setTimeout(() => {
+                                swal("Its a tie!");
+                            }, 500);
                             slotNumbersX = [];
                             slotNumbersO = [];
                             createFormModule.selectedPlayer = false;
@@ -182,8 +185,8 @@ const Player = (figure, boolean, playerName) => {
     const turn = boolean;
     const win = () => {
         setTimeout(() => {
-            swal("Good job!", "You've won!! I think..?", "success");
-        }, 500); 
+            swal(`${playerName} wins!!!`);
+        }, 100); 
     };
     return { figureChosen, turn, win };
 };
